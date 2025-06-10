@@ -1,0 +1,2525 @@
+/* 1. Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@400;500;700&family=Poppins:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
+:root {
+  /* Color Palette */
+  --primary: rgb(38, 177, 255);
+  --royal-blue: #5d6fe3;
+  --bg: #f9fafa;
+  --white: #ffffff;
+  --gray-light: #f1f3f5;
+  --gray-dark: #495057;
+  
+
+  /* Font Families */
+  --font-heading: 'Playfair Display', serif;
+  --font-body:    'Roboto', sans-serif;
+  --font-accent:  'Poppins', sans-serif;
+  --font-ui:      'Montserrat', sans-serif;
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* GLOBAL & SIDEBAR */
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--gray-dark);
+  display: flex;
+  font-size: 1.1rem;
+  overflow-x: hidden;
+}
+
+/* Sidebar overlay setup */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -20%;               /* hidden off-screen (20% = your sidebar width) */
+  width: 20%;
+  height: 100vh;
+  background: var(--primary);
+  transition: left .3s ease;
+  z-index: 999;             /* above content but below the toggle button */
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* When .menu-open is on <body>, show sidebar on top */
+body.menu-open .sidebar {
+  left: 0;
+}
+
+/* Dim the page behind the menu (optional) */
+body.menu-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 998;   /* just beneath the sidebar */
+}
+
+.logo {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logo img {
+  width: 80%;
+  border-radius: 50%;
+}
+
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  margin-bottom: 10px;
+}
+
+a {
+  font-size: 1.2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-accent);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 200px;
+  margin: 0 0 0 20px;
+  padding: 12px 0;
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-align: left;
+  letter-spacing: .5px;
+  transition: background .2s, color .2s;
+  text-decoration: underline;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--white);
+  color: var(--primary);
+}
+
+.nav-links a::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+.nav-links a[href="index.html"]    ::before { background-image: url('icons/home.svg'); }
+.nav-links a[href="services.html"] ::before { background-image: url('icons/services.svg'); }
+.nav-links a[href="aboutus.html"]  ::before { background-image: url('icons/about.svg'); }
+.nav-links a[href="booknow.html"]  ::before { background-image: url('icons/book.svg'); }
+.nav-links a[href="pastjobs.html"] ::before { background-image: url('icons/jobs.svg'); }
+
+/* HEADING STYLES */
+.hero-title,
+.page-header h2,
+.subhead,
+.what-title {
+  font-family: var(--font-heading);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;  /* adjust smaller as needed */
+  line-height: 1.5;    /* keep good readability */
+}
+
+
+/* UI TEXT (buttons, toggles) */
+.nav-links a,
+.hero-btn,
+.cta a,
+#menu-toggle .bar {
+  font-family: var(--font-ui);
+}
+
+/* BODY COPY */
+.content p,
+.card p,
+.services-list li,
+.detail-list li,
+.packages-list li,
+.highlight-box,
+.info-box,
+.disclaimer-box {
+  font-family: var(--font-body);
+}
+
+/* ACCENT TEXT (e.g. special callouts) */
+.cta a,
+.service-item {
+  font-family: var(--font-accent);
+}
+
+/* MENU TOGGLE BUTTON */
+#menu-toggle {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1100;
+  background: none;
+  border: none;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+#menu-toggle .bar {
+  width: 24px;
+  height: 3px;
+  background: var(--gray-dark);
+  border-radius: 2px;
+  transition: background .3s;
+}
+
+.content {
+  margin-top: 50px;
+  margin-left: 0 !important;
+  width: 100% !important;
+  transition: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* MENU CLOSED STATE */
+body.menu-closed .sidebar {
+  transform: translateX(-100%);
+}
+body.menu-closed .content {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* CARD BASE & HOVER */
+.card {
+  font-family: var(--font-ui);
+  width: 90%;
+  margin: 0 auto 70px;
+  padding: 40px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  letter-spacing: .5px;
+  line-height: 1.6;
+  transition: transform .3s, box-shadow .3s, background .3s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: #ffffffee;
+}
+
+/* HEADINGS */
+h1, h2, .hero-title, .page-header h1, .page-header h2, .what-title {
+  font-family: var(--font-heading);
+}
+h1, .hero-title { font-size: 3.63rem; font-weight: 800; }
+h2, .what-title { font-size: 2.5rem; font-weight: 700; }
+
+/* SUBHEADINGS */
+.page-header h1,
+.page-header h2,
+.subhead {
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+/* LINKS UNDERLINE */
+a { text-decoration: underline; }
+a:hover { text-decoration: underline; }
+
+/* HERO SECTIONS */
+.hero-card {
+  position: relative;
+  background: url('images/hero-bg.jpg') center/cover no-repeat;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--royal-blue)
+}
+.hero-content { position: relative; text-align: center; padding: 0 20px; z-index: 1; }
+.hero-title { color: var(--gray-dark); }
+.hero-btn {
+  font-family: var(--font-accent);
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: var(--white);
+  color: var(--primary);
+  padding: .8em 1.5em;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform .3s, box-shadow .3s;
+}
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* SERVICES PAGE HERO OVERRIDE */
+.content.services .hero-card {
+  margin-top: 10px;
+  height: 25vh;
+  background: var(--royal-blue);
+  margin-bottom: 80px;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.content.services .hero-card .hero-title {
+  color: var(--white);
+}
+
+/* SHOWCASE GRID */
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+.showcase-item h3 {
+  font-family: var(--font-body);
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+
+/* WHAT WE OFFER */
+.highlight-box {
+  padding: 30px 40px;
+  background: rgba(38,177,255,0.1) !important;
+  border-left: 6px solid var(--primary);
+  margin-bottom: 70px;
+}
+.services-list {
+  list-style: none;
+  margin-top: 1rem;
+  display: flex;
+  gap: 20px;
+}
+.service-link {
+  text-decoration: none;
+  flex: 1;
+  font-size: 1.15rem;
+}
+.service-item {
+  font-family: var(--font-accent);
+  background: var(--gray-light) !important;
+  color: #000000 !important;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  transition: transform .3s;
+}
+.service-link:hover .service-item {
+  transform: translateY(-4px);
+}
+
+/* WHAT WE DO */
+.what-we-do {
+  background: var(--gray-light);
+  color: var(--gray-dark);
+  padding: 40px 20px;
+  border-radius: 8px;
+  width: 90%;
+  margin: 0 auto 50px;
+}
+.what-grid .what-number {
+  font-family: var(--font-accent);
+}
+.what-text {
+  font-family: var(--font-body);
+}
+.what-underline {
+  background: var(--primary);
+}
+
+/* SERVICES PAGE DETAILS */
+.content.services .top-row {
+  display: flex;
+  gap: 50px;
+  margin-top: 40px;
+  margin-bottom: -50px;
+  text-align: center;
+}
+.content.services .top-row .card:nth-of-type(1),
+.content.services .top-row .card:nth-of-type(2) {
+  margin-left: 3%;
+  margin-right: 3%;
+  width: 50%;
+  background: #f2f2f2;
+}
+
+/* DEAL BADGES */
+.deal-box {
+  background: linear-gradient(135deg, var(--primary), #2ac1ff);
+  color: var(--gray-dark);
+  width: 240px;
+}
+
+/* DETAIL SECTIONS */
+.detail-section {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  border-left: 4px solid var(--primary);
+  padding: 50px;
+  background: rgba(38,177,255,0.05);
+  border-radius: 8px;
+  margin-bottom: 50px;
+}
+.detail-text {
+  font-family: var(--font-body);
+}
+
+/* PAST JOBS PAGE */
+.content.pastjobs .card:first-of-type {
+  background: rgba(38,177,255,0.05) !important;
+  padding: 40px;
+  border-radius: 8px;
+}
+.content.pastjobs .card:first-of-type h1 {
+  font-family: var(--font-heading);
+  color: var(--primary) !important;
+}
+.content.pastjobs .card:first-of-type p {
+  font-family: var(--font-body);
+  color: #000 !important;
+}
+
+/* GALLERY */
+.gallery .image-box img {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 100%;
+}
+
+/* BOOK NOW & FORMS */
+.form-box {
+  background: #f7f9fc;
+  position: relative;
+}
+.info-box { background: #e0f7fa; color: #006064; }
+.disclaimer-box { background: #fff8e1; color: #f57f17; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+  }
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  #menu-toggle {
+    display: flex;
+  }
+  .top-row {
+    flex-direction: column;
+  }
+  .detail-section {
+    flex-direction: column;
+  }
+  .detail-image img {
+    max-width: 100%;
+  }
+  .deal-box {
+    width: 100%;
+    height: auto;
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .hero-card {
+    height: 50vh;
+    padding: 0 20px;
+  }
+  .services-list li {
+    padding: .6em .8em;
+  }
+  .hero-btn {
+    padding: .6em 1em;
+  }
+  .booking-container {
+    flex-direction: column;
+  }
+}
+
+/* BOOK NOW PAGE */
+.booking-container {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+}
+.form-box {
+  flex: 2;
+  background: #f7f9fc;
+  padding: 25px;
+  border-radius: 6px;
+}
+.disclaimers-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.info-box {
+  background: #e0f7fa;
+  border-left: 4px solid #00acc1;
+  padding: 20px;
+  border-radius: 6px;
+  color: #006064;
+}
+.disclaimer-box {
+  background: #fff8e1;
+  border-left: 4px solid #ffca28;
+  padding: 20px;
+  border-radius: 6px;
+  color: #f57f17;
+}
+#thankYouMessage {
+  position: fixed !important;
+  top: 40% !important;
+  left: 35% !important;
+  transform: none !important;
+  background: var(--royal-blue);
+  color: var(--white);
+  padding: 2rem 4rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  z-index: 1000;
+  display: none;
+  white-space: nowrap;
+}
+
+/* PAST JOBS PAGE */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+.gallery .image-box {
+  display: flex;
+  width: 100%;
+}
+.gallery .image-box:nth-child(odd) {
+  justify-content: flex-start;
+}
+.gallery .image-box:nth-child(even) {
+  justify-content: flex-end;
+}
+.gallery .image-box img {
+  width: 60%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* SOCIAL & EMAIL ICONS */
+.social-icon {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* SMOOTH SCROLL */
+html {
+  scroll-behavior: smooth;
+}
+
+/* FORMS (shared) */
+form {
+  max-width: 600px;
+}
+form label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1em 0 .3em;
+  letter-spacing: .5px;
+}
+form input,
+form select,
+form button {
+  width: 100%;
+  padding: .8em 1em;
+  margin-bottom: 1em;
+  border: 1px solid var(--gray-light);
+  border-radius: 6px;
+  font-size: 1.05rem;
+  letter-spacing: .3px;
+}
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(38,177,255,0.2);
+}
+form button {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .3s, transform .2s;
+  letter-spacing: .5px;
+}
+form button:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .top-row {
+    flex-direction: column;
+  }
+  .top-row .card {
+    width: 100% !important;
+  }
+  .detail-section {
+    flex-direction: column;
+  }
+  .detail-image img {
+    max-width: 100%;
+  }
+  .deal-box {
+    width: 100%;
+    height: auto;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-card {
+    height: 15vh;
+    padding: 10px 0;
+  }
+  .services-list li {
+    padding: .6em .8em;
+  }
+  .hero-btn {
+    padding: .6em 1em;
+  }
+  .booking-container {
+    flex-direction: column;
+  }
+}
+
+/* And ensure the .card padding remains generous */
+.content.services .card {
+  padding: 50px;
+}
+
+/* Slight scale-up on hover for detail sections, too */
+.detail-section:hover {
+  transform: scale(1.02);
+  transition: transform .3s ease;
+}
+
+/* DEAL BADGES */
+.deal-container { display:flex; gap:5px; justify-content:center; }
+/* DEAL BADGES */
+.deal-box {
+  background: linear-gradient(135deg, var(--primary), #2ac1ff);
+  color: var(--gray-dark);
+  border-radius: 8px;
+  padding: 20px;
+  width: 240px;      /* increased from 200px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform .3s, filter .3s;
+}.deal-box:hover { transform:scale(1.05); filter:brightness(1.1); }
+.deal-subtitle { font-size:.85rem; font-weight:600; text-transform:uppercase; margin-bottom:8px; }
+.deal-percent { font-size:2.5rem; font-weight:800; }
+.deal-off { font-size:2rem; font-weight:800; }
+
+/* PACKAGES */
+.packages-list { margin:1rem 0; }
+.packages-list li { padding:8px 12px; border-radius:4px; transition:background .2s,color .2s; }
+.packages-list li:hover { background:var(--primary); color:var(--white); }
+.packages-cta { margin-top:1rem; }
+
+/* DETAIL SECTIONS */
+.detail-section { display:flex; gap:30px; align-items:flex-start; border-left:4px solid var(--primary); padding-left:36px; background:#f5fbff; transition:background .3s; }
+.detail-section:hover { background:#ebf7ff; }
+.detail-text { flex:1; }
+.detail-image { flex:1; display:flex; justify-content:center; }
+.detail-image img { width:100%; max-width:300px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.1); opacity:0; transform:scale(0.96); transition:opacity .6s,transform .6s; }
+.detail-image img { opacity:1; transform:scale(1); }
+.detail-list { list-style:disc; margin-left:20px; }
+
+/* Fade-in for detail sections */
+.card.fade-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.card.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BOOK NOW PAGE — Restored layout + new colors */
+.booking-container {
+  display: flex;          /* keep form on left, info on right */
+  gap: 40px;
+  margin-top: 20px;
+}
+
+/* Form box (left) */
+.form-box {
+  flex: 2;
+  background: #f7f9fc;    /* very light cool gray */
+  padding: 25px;
+  border-radius: 6px;
+}
+
+/* Side boxes (right) */
+.disclaimers-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Info box */
+.info-box {
+  background: #e0f7fa;          /* pale cyan */
+  border-left: 4px solid #00acc1; /* teal accent */
+  padding: 20px;
+  border-radius: 6px;
+  color: #006064;               /* dark teal text */
+}
+
+/* Disclaimer box */
+.disclaimer-box {
+  background: #fff8e1;            /* pale amber */
+  border-left: 4px solid #ffca28; /* golden accent */
+  padding: 20px;
+  border-radius: 6px;
+  color: #f57f17;                /* dark amber text */
+}
+
+/* PAST JOBS */
+.gallery { display:flex; flex-direction:column; gap:60px; }
+.gallery .image-box { display:flex; width:100%; }
+.gallery .image-box:nth-child(odd) { justify-content:flex-start; }
+.gallery .image-box:nth-child(even) { justify-content:flex-end; }
+.gallery .image-box img { width:60%; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+
+/* SOCIAL & EMAIL ICONS */
+.social-icon { width:20px; vertical-align:middle; margin-right:8px; }
+
+/* SMOOTH SCROLL */
+html { scroll-behavior:smooth; }
+
+/* FORMS (shared) */
+form { max-width:600px; }
+form label { display:block; font-size:1.1rem; font-weight:500; margin:1em 0 .3em; letter-spacing:.5px; }
+form input, form select, form button { width:100%; padding:.8em 1em; margin-bottom:1em; border:1px solid var(--gray-light); border-radius:6px; font-size:1.05rem; letter-spacing:.3px; }
+form input:focus, form select:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(38,177,255,0.2); }
+form button { background:var(--primary); color:var(--white); border:none; font-weight:600; cursor:pointer; transition:background .3s; letter-spacing:.5px; }
+form button:hover { background:#006fb3; }
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+  .content { margin-left:0; padding:20px; }
+  .top-row { flex-direction:column; }
+  .top-row .card { width:100%!important; }
+  .detail-section { flex-direction:column; }
+  .detail-image img { max-width:100%; }
+  .deal-box { width:100%; height:auto; }
+  .hero-title { font-size:2.8rem; }
+  .hero-card { height:50vh; padding:0 20px; }
+  .services-list li { padding:.6em .8em; }
+  .hero-btn { padding:.6em 1em; }
+  .booking-container { flex-direction:column; }
+}
+
+/* index.html: What We Offer links */
+.services-list {
+  display: flex;
+  gap: 20px;
+}
+.service-link {
+  text-decoration: none;
+  flex: 1;
+}
+/* Fix service-item hover so color stays applied */
+.service-link:hover .service-item {
+  background: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+/* Style the “Book Now!” link as a button */
+.cta {
+  margin-top: 2rem;            /* extra spacing above */
+}
+.cta a {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.8em 1.5em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .3s, transform .2s;
+}
+.cta a:hover {
+  background: #2a9df4;
+  transform: translateY(-2px);
+}
+
+/* Style the “Book Now!” link as a button */
+.cta {
+  margin-top: 2rem;            /* extra spacing above */
+}
+.cta a {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.8em 1.5em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .3s, transform .2s;
+}
+.cta a:hover {
+  background: #2a9df4;
+  transform: translateY(-2px);
+}
+
+/* Past Jobs – pale-blue intro card like services */
+.content.pastjobs .card:first-of-type {
+  background: rgba(38,177,255,0.05) !important;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+/* Past Jobs — heading in primary blue */
+.content.pastjobs .card:first-of-type h1 {
+  color: var(--primary) !important;
+}
+
+/* Paragraph in black for readability */
+.content.pastjobs .card:first-of-type p {
+  color: #000 !important;
+  line-height: 1.6;
+}
+
+/* — What We Do! Section (Alternative Colors) — */
+.what-we-do {
+  background: var(--gray-light) !important;   /* pale gray background */
+  color: var(--gray-dark);         /* dark text */
+  padding: 40px 20px;
+  border-radius: 8px;
+  width: 90%;
+  margin: 0 auto 50px;
+}
+.what-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--gray-dark);         /* dark title */
+}
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap: 30px;
+}
+.what-item {
+  text-align: left;
+}
+.what-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);           /* pop of blue */
+  margin-bottom: 10px;
+}
+.what-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.what-underline {
+  height: 2px;
+  width: 100%;
+  background: var(--primary);      /* blue underline */
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* When menu is closed, give services content a little left padding */
+body.menu-closed .content.services {
+  margin-left: 80px;                /* small indent instead of full zero */
+}
+
+/* Center items in the showcase grid */
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+  justify-items: center;    /* <-- centers each grid cell */
+  margin-top: 30px;
+}
+
+/* Center text inside each showcase-item */
+.showcase-item {
+  text-align: center;       /* <-- centers image caption */
+}
+
+/* Ensure all showcase images get the same shadow */
+.showcase-item img,
+.showcase img {
+  width: 100%;
+  height: 300px;         /* pick whatever fixed height you like */
+  object-fit: cover;     /* crop/scale to fill without distortion */
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Ensure Past Jobs intro paragraph uses the same body font */
+.content.pastjobs .card .intro-text {
+  font-family: var(--font-body) !important;
+  font-size: 1.1rem;       /* match your index.html paragraph size */
+  line-height: 1.6;        /* match spacing */
+  color: var(--gray-light) !important;
+}
+
+/* ==========================================================================
+   Past Jobs: 2-column zig-zag layout
+   ========================================================================== */
+.content.pastjobs .gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 40px !important;    /* 60px vertical, 40px horizontal gap */
+  margin: 0 auto;
+}
+
+.content.pastjobs .gallery .image-box {
+  margin: 0;         /* reset any previous margins */
+  display: flex;
+  justify-content: center;
+}
+
+/* Zig-zag offset: evens down, odds up */
+.content.pastjobs .gallery .image-box:nth-child(even) {
+  margin-top: 60px;  
+}
+.content.pastjobs .gallery .image-box:nth-child(odd) {
+  margin-bottom: 60px;
+}
+
+/* Make images fill their box uniformly */
+.content.pastjobs .gallery .image-box img {
+  width: 100%;
+  height: 750px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+
+/* Add-On Buttons */
+.addons {
+  display: flex;
+  gap: 20px;
+  margin-top: 1rem;
+}
+.addon-btn {
+  flex: 1;
+  background: var(--gray-dark);
+  color: var(--white);
+  border: none;
+  padding: .8em 1em;
+  border-radius: 6px;
+  font-family: var(--font-accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .3s, transform .2s;
+}
+.addon-btn:hover {
+  background: var(--gray-dark);
+}
+
+/* Add-On Buttons Active State */
+.addon-btn.active {
+  background: #008000;    /* darker blue when “on” */
+}
+
+/* Shift “What We Do!” title right and add glow on hover */
+.what-we-do .what-title {
+  margin-left: 18px;   /* shifts the title right by 20px */
+}
+
+/* — What We Do! hover lifts upward, no glow — */
+.what-we-do {
+  transition: transform .3s ease;
+}
+.what-we-do:hover {
+  transform: translateY(-3px);
+}
+
+/* — Glow on main hero title box instead — */
+.hero-card {
+  transition: box-shadow .3s ease;
+}
+.hero-card:hover {
+  box-shadow:
+    0 0 20px rgba(38,177,255,0.6),
+    0 0 40px rgba(38,177,255,0.4),
+    0 0 60px rgba(38,177,255,0.2);
+}
+
+/* — Make “Benefits of Mobile Detailing” easier to read — */
+.content.aboutus .highlight-box {
+  background: var(--white) !important;      /* white background */
+  color: var(--gray-dark) !important;       /* dark text */
+  border-left: 6px solid var(--primary);    /* keep accent line */
+  padding: 40px 50px;                       /* extra breathing room */
+}
+.content.aboutus .highlight-box .page-header h2 {
+  color: var(--royal-blue) !important;      /* richer heading color */
+  font-size: 1.75rem;                       /* slightly larger */
+}
+.content.aboutus .highlight-box .services-list li {
+  font-size: 1.1rem;                        /* bigger list text */
+  margin-bottom: 1rem;                      /* more vertical space */
+}
+
+/* Royal-blue accent line on the first benefit item */
+.content.aboutus .highlight-box .services-list li:first-of-type {
+  border-left: 3.1px solid var(--royal-blue);
+  padding-left: 1.3em;      /* space text away from the line */
+}
+
+/* — New look for “Why Choose Beyond Spotless?” — */
+.content.aboutus .card.fade-item:nth-of-type(2) {
+  background: rgba(93, 111, 227, 0.1);       /* light periwinkle tint */
+  border-left: 8px solid var(--royal-blue);  /* bold blue accent */
+}
+.content.aboutus .card.fade-item:nth-of-type(2) .page-header h1 {
+  color: #333;                              /* deep charcoal heading */
+  font-family: var(--font-heading);
+}
+.content.aboutus .card.fade-item:first-of-type p {
+  color: var(--gray-dark);                  /* dark gray for paragraphs */
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+.content.aboutus .card.fade-item:first-of-type .cta a {
+  background: var(--royal-blue);            /* button background */
+  color: var(--white);                      /* button text */
+  padding: .7em 1.4em;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 1.5rem;
+  transition: background .3s;
+}
+.content.aboutus .card.fade-item:first-of-type .cta a:hover {
+  background: #3d51b5;                      /* a touch darker on hover */
+}
+
+/* — About Us Hero Box styling on aboutus.html — */
+.content.aboutus .hero-card {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 10px;                 /* keeps it below the menu toggle */
+  height: 20vh;                     /* same height as Services hero */
+  background: var(--royal-blue);    /* same royal blue */
+  margin-bottom: 60px;              /* extra space below */
+}
+.content.aboutus .hero-card .hero-title {
+  color: var(--white);
+}
+
+/* — Extra vertical spacing between cards on About Us page — */
+.content.aboutus .card,
+.content.aboutus .highlight-box {
+  margin-bottom: 70px;  /* increase from 50px to 60px */
+}
+
+/* About Us — tweak Benefits of Mobile Detailing typography */
+.content.aboutus .highlight-box .page-header h2 {
+  font-size: 2.2rem;    /* larger title */
+  line-height: 2.2;
+}
+
+/* Hover lift for Benefits of Mobile Detailing box */
+.content.aboutus .highlight-box {
+  transition: transform .2s ease;
+}
+.content.aboutus .highlight-box:hover {
+  transform: translateY(-3px);
+}
+
+/* Benefits of Mobile Detailing — horizontal spread with separators */
+.content.aboutus .highlight-box .services-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+  margin-top: 1rem;
+}
+
+.content.aboutus .highlight-box .services-list li {
+  flex: 1;
+  padding: 0 20px;
+  position: relative;
+  font-size: 0.96rem;  /* slightly smaller for readability */
+  line-height: 2.0;
+}
+
+/* Add vertical separator between each item */
+.content.aboutus .highlight-box .services-list li + li {
+  border-left: 3px solid var(--royal-blue);
+}
+
+/* Two-column layout for the “Why Choose” card */
+.content.aboutus .why-choose .why-content {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  flex-wrap: wrap; /* stack on mobile */
+}
+
+/* Text column takes ~60% */
+.content.aboutus .why-choose .why-text {
+  flex: 1 1 60%;
+}
+
+/* Text column takes ~60% */
+.content.aboutus .why-choose .why-text h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+/* Image column takes ~40% */
+.content.aboutus .why-choose .why-image {
+  flex: 1 1 35%;
+  text-align: center;
+}
+.content.aboutus .why-choose .why-image img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Universal image hover effect matching the Deals boxes */
+img {
+  transition: transform .5s ease, filter .3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* When sidebar is hidden, keep all pages inset slightly */
+body.menu-closed .content {
+  margin-left: 100px !important;
+  width: calc(100% - 20px) !important;
+}
+
+body .content.pastjobs .card.fade-item p.intro-text {
+  color: var(--gray-dark) !important;
+}
+
+/* FADE-ITEM BASE */
+.fade-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease-out, transform .8s ease-out;
+}
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* About Us — make hero “About Us” textbox taller */
+.content.aboutus .hero-card {
+  height: 25vh;      /* increased from 20vh to 35vh */
+  margin-bottom: 100px; /* extra space below before next card */
+}
+
+/* Ensure the Why-Choose card sits further below */
+.content.aboutus .why-choose {
+  margin-top: 40px;  /* pushes it down from hero-box */
+}
+
+/* Disable hover effects on the logo */
+.logo img {
+  transition: none !important;
+}
+.logo img:hover {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Contact Us & About Us buttons */
+.contact-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 20px;
+  font-size: 0.5rem;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  padding: .8em 1.5em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .3s, transform .2s;
+}
+.cta-btn:hover {
+  background: #2a9df4;
+  transform: translateY(-2px);
+}
+
+/* Layout for contact row */
+.contact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Ensure icons don’t push lines too tall */
+.contact-icon {
+  width: 20px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+/* Button group (already defined) */
+.contact-buttons {
+  display: flex;
+  gap: 20px;
+  font-size: 5rem;
+}
+
+/* Adjust responsive behavior */
+@media (max-width: 600px) {
+  .contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Match the “Why Choose” purplish look for the comparison card */
+.comparison-card {
+  background: rgba(93, 111, 227, 0.1) !important;       /* same light periwinkle tint */
+  border-left: 8px solid var(--royal-blue);  /* same bold accent */
+  margin-bottom: 120px;  /* increase the space as needed */
+}
+.comparison-card .page-header h1 {
+  color: #333;       /* black title text */
+}
+
+/* Universal enhanced hover for all textboxes */
+.card {
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.25),
+    0 8px 16px rgba(0, 0, 0, 0.20);
+}
+
+/* Ensure text inside that box is white */
+.home-hero .hero-title,
+.home-hero .hero-text {
+  color: #FFFDD0 !important;
+}
+
+/* Glow effect for the homepage hero box */
+.home-hero {
+  transition: box-shadow .3s ease;
+}
+.home-hero:hover {
+  box-shadow:
+    0 12px 24px rgba(38,177,255,0.6),
+    0 8px 16px rgba(38,177,255,0.4);
+}
+
+/* ==========================================================================
+   Mobile Portrait Overrides (e.g. iPhone height > width)
+   ========================================================================== */
+@media screen and (max-width: 600px) {
+  /* 1) Hamburger always visible */
+  #menu-toggle {
+    display: flex !important;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 3000;
+  }
+
+  /* 2) Sidebar as overlay, off-canvas by default */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    z-index: 2500;
+  }
+  /* slide in when menu-open is on body */
+  body.menu-open .sidebar {
+    transform: translateX(0) !important;
+  }
+  /* hide when menu is closed */
+  body:not(.menu-open) .sidebar {
+    transform: translateX(-100%) !important;
+  }
+
+  /* 3) Main content stays full-width behind overlay */
+  .content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    /* 4) proportional padding */
+    padding: 5% !important;
+  }
+
+  /* 3b) All hero/detail/gallery/showcase images full width & auto height */
+  .hero-card,
+  .showcase-item img,
+  .detail-image img,
+  .before-image img,
+  .after-image img,
+  .gallery .image-box img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+/* —————————————————————————————————————————
+   Always‐overlay off-canvas menu for all viewports
+   ————————————————————————————————————————— */
+#menu-toggle {
+  display: flex !important;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+}
+
+/* start hidden off-screen */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: transform .3s ease !important;
+  z-index: 9000;
+}
+
+/* when we add .menu-open on <body>, slide it in */
+body.menu-open .sidebar {
+  transform: translateX(0) !important;
+}
+
+/* always keep your main content full-width behind it */
+.content {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* ensure any leftover desktop shift rules don’t fire */
+body:not(.menu-open) .content {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* 3. “What We Offer” buttons stack vertically on mobile */
+@media (max-width: 768px) {
+  .services-list {
+    flex-direction: column !important;
+  }
+  .services-list .service-link {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+}
+
+/* 1. Make the phone‐number “Contact Us” text smaller */
+.contact-row p {
+  font-size: 1.2rem;  /* adjust as needed */
+}
+
+/* global page-header H1s — shrink them uniformly */
+.page-header h1 {
+   font-size: 2.2rem;
+}
+
+/* make all sub‐headings smaller (e.g. “Connect With Us”) */
+.page-header h2,
+.subhead,
+.contact-row h2 {
+  font-size: 2.2rem;
+}
+
+@media (max-width: 768px) {
+    /* make all sub‐headings smaller (e.g. “Connect With Us”) */
+    .page-header h2,
+    .subhead,
+    .contact-row h2 {
+    font-size: 1.9rem;
+  }
+
+    .contact-row p {
+    font-size: 0.9rem;  /* adjust as needed */
+  }
+}
+
+/* give the hamburger some space from the first box */
+#menu-toggle {
+  top: 32px !important;  /* was 16px — bump it down */
+}
+
+/* make sure the page content doesn’t sit under it */
+.content {
+  padding-top: 50px;      /* enough to clear the icon */
+}
+
+/* default (menu closed) */
+#menu-toggle .bar {
+  background: var(--gray-dark);
+}
+
+/* when menu is open */
+body.menu-open #menu-toggle .bar {
+  background: var(--white);
+}
+
+/*────────────────────────────────────────*/
+/*  Constrain & center all “textbox” cards */
+/*────────────────────────────────────────*/
+
+
+/* 2. Make every textbox‐style container span 100% width */
+.card,
+.highlight-box,
+.detail-section,
+.deal-box,
+.info-box,
+.disclaimer-box,
+.form-box,
+.comparison-card,
+.hero-card {
+  width: 97.5% !important;
+  max-width: none !important;
+  margin-left: 1.5% !important;
+  margin-right: 1.5% !important;
+}
+
+/* Increase text size on all primary buttons */
+.hero-btn,
+.cta a,
+.cta-btn,
+.addon-btn {
+  font-size: 0.95rem; /* adjust as needed */
+}
+
+/* in your styles.css */
+.addon-btn:hover {
+  transform: none !important;
+  /* if you want, you can also remove the transition so it’s instant */
+  /* transition: none !important; */
+}
+
+/* on mobile, shrink text and padding so they exactly touch */
+@media (max-width: 768px) {
+  .addons .addon-btn {
+    font-size: 0.72rem;  /* smaller font so labels fit */
+    padding: 0.4em;      /* tighter padding */
+  }
+  .addons {
+    gap: 7px !important; /* you can tweak this value as needed */
+  }
+}
+/* MOBILE: equal-height images in “Details In Progress” */
+
+@media (max-width: 768px) {
+  /* bump up the hero-style boxes on Services & About Us pages */
+  .content.services .hero-card,
+  .content.aboutus .hero-card {
+    /* either a % of viewport or a hard min-height */
+    height: 40vh !important;
+    /* if you’d rather a fixed min height: */
+    /* min-height: 300px !important; */
+  }
+}
+
+@media (max-width: 768px) {
+  /* tighten up the “Benefits of Mobile Detailing” list items */
+  .content.aboutus .highlight-box .services-list li {
+    /* remove extra bottom margin */
+    margin-bottom: 0.5rem !important;
+    /* tighten line spacing */
+    line-height: 1.4 !important;
+    /* and let them wrap if they need to */
+    flex-wrap: wrap;
+  }
+  /* if your title is also too spaced, reduce its margin: */
+  .content.aboutus .highlight-box .page-header h2 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* ─── FULL-WIDTH BLUE HERO ───────────────────────────────────────────────── */
+.home-hero {
+  background: var(--royal-blue);
+  padding: 4rem 2%;               /* 2% side padding to breathe on mobile */
+  border-radius: 2rem;            /* nice rounded edges all around */
+  margin: 0 auto 3rem;            /* center and space below */
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+/* constrain inner text & center it */
+.home-hero .hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--white);
+}
+
+/* main heading */
+.home-hero .hero-title {
+  font-size: 7rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ─── STEPPED SLOGAN ─────────────────────────────────────────────────────── */
+.slogan {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 2rem;
+  font-family: var(--font-accent);
+  color: rgba(255,215,0,0.9);
+  font-size: 2rem;                /* bumped up */
+  font-weight: 600;
+  line-height: 1.2;
+}
+.slogan span {
+  display: block;
+}
+
+/* ─── BUTTON UNDER SLOGAN ───────────────────────────────────────────────── */
+.home-hero .hero-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  border-radius: .75rem;
+}
+
+/* ─── SERVICES & ABOUT-US HERO MATCHING HOME HERO ────────────────────────── */
+.content.services .hero-card,
+.content.aboutus .hero-card {
+  background: var(--royal-blue);
+  padding: 4rem 2%;             /* same top/bottom + 2% side padding */
+  border-radius: 2rem;          /* match the rounded corners */
+  margin: 0 auto 3rem;          /* center + space below */
+  position: relative;           /* keep existing fade-item positioning */
+  overflow: hidden;             /* if anything inside might overflow */
+}
+
+/* constrain & center the inner text */
+.content.services .hero-card .hero-content,
+.content.aboutus .hero-card .hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--white);          /* ensure titles/text show on blue */
+}
+
+/* override page-specific title colors */
+.content.services .hero-card .hero-title,
+.content.aboutus .hero-card .hero-title {
+  color: var(--white);
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Mobile-only tweaks (max-width: 768px)
+──────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* 1. Shrink the hero boxes on About Us & Services */
+  .content.aboutus .hero-card,
+  .content.services .hero-card {
+    height: 30vh !important;     /* was ~60vh on desktop */
+    padding: 1.5rem !important;
+  }
+
+  /* 2. More vertical breathing between text-boxes */
+  .card,
+  .highlight-box,
+  .detail-section {
+    margin-bottom: 2rem !important;
+  }
+
+  /* 3. Space between the main title and the slogan */
+  .home-hero .slogan {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* 4. Stack each slogan word vertically & remove any left-offsets */
+  .home-hero .slogan span {
+    display: block !important;
+    margin: 0.25rem 0 !important;
+    text-align: center !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Mobile tweaks for Book Now form
+──────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* 2) Center the thank-you message overlay */
+  #thankYouMessage {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    /* if needed, also nudge vertically: */
+    /* top: 30% !important; */
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Mobile fixes (max-width: 768px)
+──────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* 2) “Deals you can’t miss” heading smaller */
+  /* 
+     Adjust selector to whatever wrapper you have around that heading.
+     Here we assume it's the page-header inside the deal section.
+  */
+  .deal-container .page-header h2,
+  .deal-container .page-header h1 {
+    font-size: 1rem !important;  /* shrink the text */
+    line-height: 1.3 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* tighten the line-height and spacing of the h2 in the highlight-box */
+  .content.aboutus .highlight-box .page-header h2 {
+    line-height: 1.2 !important;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    font-size: 0.75rem;
+  }
+}
+
+/* if you want a slightly smaller caption on mobile, wrap in your existing media query: */
+@media (max-width: 768px) {
+  /* Royal-blue accent line on the first benefit item */
+  .content.aboutus .highlight-box .services-list li:first-of-type {
+    margin-top: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   2) MOBILE: extra vertical spacing in Benefits section
+   ========================================================================== */
+
+  /* wider gap under the Benefits heading */
+  .content.services .page-header h2,
+  .content.aboutus .page-header h2 {
+    margin-bottom: 1.9rem !important;
+  }
+
+  /* add space between each benefit item */
+  .content.services .detail-section,
+  .content.aboutus .highlight-box .services-list li {
+    margin-bottom: 1.25rem;
+  }
+
+  /* ========================================================================== 
+   2) OUR FEATURES: stack icon + caption, remove hover-scale 
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Force “hover” styles on mobile */
+  .card,
+  .highlight-box,
+  .info-box,
+  .disclaimer-box,
+  .comparison-card,
+  .deal-box {
+    /* match your .card:hover rules */
+    transform: translateY(-6px) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────────────────
+   FORCE CERTAIN “HOVER” STYLES TO STAY ON PERMANENTLY
+   ────────────────────────────────────────────────────────────────────────────── */
+
+  /* 2) Hero‐style textboxes on Services, About Us, and Home */
+  .content.services .hero-card,
+  .content.aboutus   .hero-card,
+  .home-hero         .hero-card {
+    /* match your hero-card:hover glow */
+    box-shadow:
+      0 0 20px rgba(38,177,255,0.6),
+      0 0 40px rgba(38,177,255,0.4),
+      0 0 60px rgba(38,177,255,0.2)
+      !important;
+    /* if you also lifted these on hover, e.g. translateY, you can add it here */
+    transform: translateY(-3px) !important;
+    transition: box-shadow .3s ease, transform .3s ease !important;
+  }
+
+  /* 3) “Our Services” & “About Us” cards further down pages (if they’re .card:hover) */
+  .content.services .card:hover,
+  .content.aboutus   .card:hover {
+    /* match your .card:hover */
+    transform: translateY(-6px) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    background: #ffffffee !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1) Always-hover the main “Beyond Spotless” / hero box on mobile
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* If your home-hero is a .home-hero section */
+  .home-hero {
+    /* apply the same box-shadow + lift you do on :hover */
+    box-shadow:
+       0 0 20px rgba(38,177,255,0.6),
+       0 0 40px rgba(38,177,255,0.4),
+       0 0 60px rgba(38,177,255,0.2)
+      !important;
+    transform: translateY(-3px) !important;
+    transition: box-shadow .3s ease, transform .3s ease !important;
+  }
+
+  /* main heading */
+  .home-hero .hero-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1) “Our Promise” matches the Why-Choose periwinkle/black style
+   ───────────────────────────────────────────────────────────────────────────── */
+.our-promise {
+  background: rgba(93, 111, 227, 0.1) !important;   /* light periwinkle tint */
+  border-left: 8px solid var(--royal-blue) !important;
+  color: #333 !important;                           /* dark heading text */
+  padding: 40px !important;
+  border-radius: 8px !important;
+  margin-bottom: 70px !important;
+}
+
+.our-promise .subhead {
+  font-family: var(--font-heading) !important;
+  color: #333 !important;
+  margin-bottom: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2) On mobile, expand Must-See-Deals blue boxes to ~90% width
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .deal-box {
+    width: 90% !important;
+    margin: 0 auto 1rem !important;
+  }
+  .packages-list li {
+    width: 90% !important;
+    margin: 0 auto 1rem !important;
+  }
+
+  li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .home-hero {
+    position: relative;
+    background: var(--royal-blue);
+    border-radius: 2rem;
+    padding: 4rem 2%;
+    overflow: hidden;
+  }
+
+  .hero-stripes .stripe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8px;               /* ← thicker stripes */
+    background: var(--primary);
+  }
+
+  /* left two stripes */
+  .hero-stripes .stripe.left.stripe-1 { left: 5%; }
+  .hero-stripes .stripe.left.stripe-2 { left: 10%; }
+  .hero-stripes .stripe.left.stripe-3 { left: 15%; }
+  .hero-stripes .stripe.left.stripe-4 { left: 20%; }
+  .hero-stripes .stripe.left.stripe-5 { left: 25%; }
+
+  /* right two stripes */
+  .hero-stripes .stripe.right.stripe-5 { right: 25%; }
+  .hero-stripes .stripe.right.stripe-4 { right: 20%; }
+  .hero-stripes .stripe.right.stripe-3 { right: 15%; }
+  .hero-stripes .stripe.right.stripe-2 { right: 10%; }
+  .hero-stripes .stripe.right.stripe-1 { right: 5%; }
+
+  .hero-content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--white);
+  }
+
+  .hero-content .slogan {
+    font-family: var(--font-accent);
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 1rem 0 2rem;
+    color: gold;
+  }
+  .hero-content .slogan span {
+    display: block;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+    border-radius: .75rem;
+  }
+}
+
+/* ── “Pictures of Us” gallery under Why Choose ───────────────────────── */
+.details-in-progress .page-header h2 {
+  margin-bottom: 1rem;
+}
+
+.details-in-progress .picture-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* limit “Pictures of Us” image height so the row is shorter */
+.details-in-progress .picture-grid img {
+  width: 32%;              /* keep three across */
+  max-height: 550px;       /* cap their height */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
+/* ensure on mobile they wrap to full-width nicely */
+@media (max-width: 768px) {
+  .details-in-progress .picture-grid img {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  /* Replace .details-in-progress with the actual class or ID of your section */
+  .details-in-progress img {
+    display: block;
+    width: 100%;
+    height: 320px;      /* choose your desired fixed height */
+    object-fit: cover;  /* crop/scale to fill without distortion */
+  }
+}
+
+/* ─── NEW “What We Do” DESIGN ─────────────────────────────────────────────── */
+.what-we-do.new-design {
+  padding: 4rem 2%;
+  background: #fff;
+  margin-left: 1.5%;
+  width: 98%
+}
+.what-we-do.new-design:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.what-we-do.new-design .page-header h2 {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: var(--primary);
+}
+
+.what-we-do.new-design .what-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.what-we-do.new-design .what-card {
+  position: relative;
+  padding: 2.5rem 1.5rem 1.5rem;
+  background: var(--white);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform .3s, box-shadow .3s;
+}
+.what-we-do.new-design .what-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.what-we-do.new-design .what-card .hex-bg {
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  background: var(--primary);
+  clip-path: polygon(
+    50% 0%,
+    93% 25%,
+    93% 75%,
+    50% 100%,
+    7% 75%,
+    7% 25%
+  );
+  opacity: .15;
+}
+
+.what-we-do.new-design .what-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 1rem;
+}
+.what-we-do.new-design .what-icon img {
+  width: 100%; height: auto;
+}
+
+.what-we-do.new-design .what-icon img:hover {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.what-we-do.new-design h3 {
+  font-family: var(--font-accent);
+  text-align: center;
+  margin-bottom: .75rem;
+  font-size: 1.25rem;
+  color: var(--gray-dark);
+}
+
+.what-we-do.new-design p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--gray-dark);
+  margin: 0;
+}
+
+/* Packages Section */
+.packages-section {
+  margin: 4rem 1.5%;
+  text-align: center;
+}
+.packages-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.packages-header .packages-subhead {
+  font-size: 1.1rem;
+  color: var(--gray-dark);
+  margin-bottom: 2rem;
+}
+
+/* Card Grid */
+.package-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 1.5rem;
+}
+
+/* Individual Card */
+.package-card {
+  background: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform .3s, box-shadow .3s;
+}
+.package-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Titles */
+.package-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--royal-blue);
+  margin-bottom: 1rem;
+}
+
+/* Definition List for prices */
+.package-details {
+  margin: 0 0 1.5rem;
+  text-align: left;
+}
+.package-details div {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+.package-details dt {
+  font-weight: 600;
+  color: var(--gray-dark);
+}
+.package-details dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* CTA Button */
+.package-cta {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .3s, transform .2s;
+}
+.package-cta:hover {
+  background: var(--royal-blue);
+  transform: translateY(-2px);
+}
+
+.deal-box .deal-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .packages-header h2 {
+    font-size: 2rem;
+  }
+  .package-details div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .package-details dt,
+  .package-details dd {
+    font-size: 0.95rem;
+  }
+  .package-card {
+    padding: 1rem;
+  }
+  .deal-box .deal-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Container & background --- */
+.home-hero {
+  position: relative;
+  background: var(--royal-blue);
+  padding: 6rem 2%;
+  margin: 0 auto 3rem;
+  border-radius: 2rem;
+  overflow: hidden;
+  max-width: 100%;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+}
+
+/* --- Fade in on load --- */
+.home-hero.fade-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .8s ease-out, transform .8s ease-out;
+}
+.home-hero.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Stripes --- */
+.hero-stripes .stripe {
+  position: absolute;
+  top: 0;
+  width: 12px; /* thicker stripes */
+  height: 100%;
+  background: var(--primary);
+  opacity: 0.7;
+}
+
+/* left stripes: 4 stripes spaced at 5%, 10%, 15%, 20% */
+.hero-stripes .stripe.left.stripe-1 { left: 5%; }
+.hero-stripes .stripe.left.stripe-2 { left: 10%; }
+.hero-stripes .stripe.left.stripe-3 { left: 15%; }
+.hero-stripes .stripe.left.stripe-4 { left: 20%; }
+
+/* right stripes: 4 stripes spaced at 80%, 85%, 90%, 95% */
+.hero-stripes .stripe.right.stripe-1 { left: 80%; }
+.hero-stripes .stripe.right.stripe-2 { left: 85%; }
+.hero-stripes .stripe.right.stripe-3 { left: 90%; }
+.hero-stripes .stripe.right.stripe-4 { left: 95%; }
+
+/* --- Content wrapper --- */
+.hero-content {
+  position: relative; /* sits above stripes */
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--white);
+}
+
+/* --- Headline --- */
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* --- Slogan --- */
+.slogan {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: gold;
+  margin-bottom: 2rem;
+}
+.slogan span {
+  display: block;
+}
+
+/* --- Button --- */
+.hero-btn {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  background: var(--white);
+  color: var(--primary);
+  border-radius: 1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform .3s, box-shadow .3s;
+  width: 100%;
+}
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  .slogan span{
+    font-size: 1.1rem;
+  }
+  .hero-btn {
+    font-size: 1rem;
+    padding: .8rem 1.5rem;
+  }
+  /* collapse stripes on mobile if you prefer */
+  .hero-stripes { display: none; }
+}
+
+/* Car image styling */
+.hero-car {
+  display: block;
+  width: 100%;             /* shrinks on mobile */
+  height: auto;
+  margin-top: -100px;
+  margin-bottom: -80px;
+}
+.hero-car:hover {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Shrink the blue “home-hero” box by reducing its vertical padding ── */
+.home-hero {
+  /* was padding: 4rem 2%; */
+  padding: 2.5rem 2% !important;
+}
+
+/* ── Make the “Check Out Our Services” button text larger ── */
+.home-hero .hero-btn {
+  /* bump from 1.25rem → 1.75rem */
+  font-size: 1.75rem !important;
+  /* optional: adjust padding so it stays nicely balanced */
+  padding: 1rem 3rem !important;
+}
+
+/* ── Mobile-only fine-tune ── */
+@media (max-width: 768px) {
+  .home-hero {
+    padding: 2rem 4% !important;
+  }
+  .home-hero .hero-btn {
+    font-size: 1.5rem !important;
+    padding: 0.75rem 2rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 1) More breathing room between the slogan text and your car image */
+  .home-hero .hero-content img {
+    display: block;
+    width: 100%;
+    margin-top: -40px;
+    margin-bottom: -40px;
+  }
+
+  .hero-car {
+    margin-top: -40px;
+    margin-bottom: -40px;
+  }
+
+  /* 2) Shrink the CTA font just on mobile */
+  .home-hero .hero-btn {
+    font-size: 1rem !important;    /* adjust down from desktop size */
+    padding: 0.75rem 1.5rem !important; /* keep the touch-area comfy */
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Stack Must See Deals cards on mobile
+──────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .deal-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;      /* space between stacked cards */
+  }
+
+  .deal-container .deal-box {
+    flex: none !important;      /* disable equal flex */
+    width: 100% !important;     /* full container width */
+    max-width: none !important; /* override any fixed width */
+    margin: 0 !important;
+  }
+}
+
+/* enlarge the Book buttons on mobile */
+@media (max-width: 768px) {
+  .content.services .top-row .card button {
+    font-size: 1.1rem !important;    /* bump up from ~1rem */
+    padding: 1rem 1.5rem !important; /* more tappable */
+  }
+
+  /* horizontal price lines */
+  .content.services .price-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .content.services .price-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem; /* spacing between items */
+    font-size: 1rem;        /* label/value text size */
+  }
+  .content.services .price-list li .label {
+    font-weight: 500;
+  }
+  .content.services .price-list li .value {
+    font-weight: 700;
+    color: var(--primary);
+  }
+}
+
+/* ─── PACKAGES: horizontal dt/dd pairs ───────────────────────────────────── */
+.package-details {
+  margin: 0;
+  padding: 0;
+}
+.package-details > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;       /* space between lines */
+}
+.package-details dt {
+  font-weight: 500;
+}
+.package-details dd {
+  margin: 0;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ─── PACKAGES CTA (Book …) buttons on mobile ───────────────────────────── */
+@media (max-width: 768px) {
+  .package-cta {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem !important;     /* a bit bigger on phones */
+    padding: 1rem 1.5rem !important;  /* more tappable area */
+  }
+}
+
+@media (max-width: 768px) {
+  /* shrink the “Why Choose Beyond Spotless?” title */
+  .why-choose .page-header h1 {
+    font-size: 2rem !important;    /* down from ~2.2rem */
+    line-height: 1.3 !important;
+    margin-bottom: 1rem !important;  /* give it some breathing room */
+  }
+
+  /* center the “Get in Touch” button underneath */
+  .why-choose .cta {
+    text-align: center !important;
+    margin-top: 2rem !important;
+  }
+}
+
+/* Mobile tweaks */
+@media (max-width: 768) {
+/* ─── Always “hovered” on mobile for What We Do ───────────────────────────── */
+  .what-we-do.new-design {
+    /* match your hover‐state shadow */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    /* you can also add the transform if your hover lifts it */
+    transform: translateY(-3px) !important;
+    transition: none !important; /* instant, or keep transition if you like */
+  }
+
+  .what-we-do.new-design .what-card {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .what-we-do.new-design .page-header h2 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* target only the “Beyond Spotless Specialty” on mobile */
+  .what-we-do.new-design .page-header > .subhead.specialty-title {
+    font-size: 2.7rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
+/* base fade-item state */
+.fade-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* when JS adds .visible */
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Optional: staggered delay via data-delay */
+.fade-item[data-delay] {
+  transition-delay: attr(data-delay);
+}
+
+/* make sure mobile doesn’t override it away */
+@media (max-width: 768px) {
+  .fade-item,
+  .fade-item.visible {
+    /* re-apply same transitions on mobile */
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .fade-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+}
+
+.content.services h1 {
+  font-size: 2.5rem;
+}
+.content.services .hero-title{
+  font-size: 5rem;
+}
+
+/* ─── iOS Safari–only tweaks ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .home-hero .slogan span {
+      font-size: 1.05rem !important;
+    }
+
+    a {
+      font-size: 0.7rem;
+    }
+
+    .contact-row a {
+      font-size: 0.85rem !important;
+    }
+
+    .contact-row p {
+      font-size: 0.85rem !important;
+    }
+
+    /* 5. Shrink “New Customers” & “Buy 1, Get 1” subtitles */
+    .deal-title {
+      font-size: 1.1rem !important;
+    }
+
+    /* 6. Shrink placeholder in Address (Your Service Location) */
+    #phone::placeholder,
+    #address::placeholder, 
+    .service-text {
+      font-size: 0.96rem !important;
+    }
+
+    /* main heading */
+    .home-hero .hero-title {
+      font-size: 4rem;
+    }
+
+    /* 7. Shrink “See Our Beyond Spotless Details” on Past Jobs */
+    .content.services h1 {
+      font-size: 3rem !important;
+    }
+        .page-header h1,
+    .content.services .page-header h1,
+    .subhead,
+    .page-header h2 {
+      font-size: 1.9rem !important;
+    }
+
+    .content.pastjobs h1 {
+      font-size: 1.5rem;
+    }
+
+    .what-we-do.new-design .page-header h2 {
+      font-size: 2rem;
+    }
+
+    p,
+    .content.pastjobs .card .intro-text,
+    .disclaimer-box,
+    .info-box {
+      font-size: 1rem;
+    }
+
+    /* Ensure icons don’t push lines too tall */
+    .contact-icon {
+      width: 13px;
+    }
+
+    .card.details-in-progress h2{
+      line-height: 2.2rem;
+    }
+}
+
+/* Packages “pop” on hover */
+.package-card {
+  /* smooth transition for both movement and shadow */
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.package-card:hover {
+  /* lift up 10px and slightly scale for emphasis */
+  transform: translateY(-3px) scale(1.02);
+  /* stronger shadow for the “pop” */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  /* Ensure the service select, date & time inputs all span 100% */
+  #service,
+  #date,
+  #time {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}

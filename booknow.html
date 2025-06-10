@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/companylogo.png">
+  <link rel="apple-touch-icon" href="images/companylogo.png">
+
+  <title>Book Now | Beyond Spotless</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- then the rest -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('MpIyOu-EnT-_DhuX0');
+  </script>
+  <script src="script.js" defer></script>
+</head>
+
+<body id="top">
+  <!-- Menu toggle -->
+  <button id="menu-toggle" aria-label="Toggle menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <!-- Thank you overlay -->
+  <div id="thankYouMessage">Thank You!</div>
+
+  <!-- Sidebar nav -->
+  <nav class="sidebar">
+    <div class="logo">
+      <img src="images/companylogo.png" alt="Beyond Spotless Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="booknow.html" class="active">Book Now</a></li>
+      <li><a href="ourwork.html">Our Work</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main class="content fade-item">
+    <div class="card">
+      <div class="page-header">
+        <h1>Book a Cleaning</h1>
+      </div>
+      <div class="booking-container">
+        <!-- Form -->
+        <div class="form-box">
+          <form id="bookingForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="e.g. 416-555-1234" required />
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Your service location" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+
+            <label class="service-text" for="service">Select Service</label>
+            <select id="service" name="service">
+              <option>Exterior – Sedan ($65)</option>
+              <option>Exterior – SUV ($75)</option>
+              <option>Exterior – Minivan/Truck ($85)</option>
+              <option>Interior – Sedan ($150)</option>
+              <option>Interior – SUV ($160)</option>
+              <option>Interior – Minivan/Truck ($170)</option>
+              <option>Entire Car – Sedan ($180)</option>
+              <option>Entire Car – SUV ($190)</option>
+              <option>Entire Car – Minivan/Truck ($200)</option>
+            </select>
+
+            <!-- Add-ons -->
+            <div class="addons">
+              <button type="button" id="saltRemoval" class="addon-btn" data-addon="Salt Removal (+$30)">
+                Salt Removal (+$30)
+              </button>
+              <button type="button" id="hairRemoval" class="addon-btn" data-addon="Pet Hair Removal (+$40)">
+                Pet Hair Removal (+$40)
+              </button>
+              <button type="button" id="vomitRemoval" class="addon-btn" data-addon="Vomit Removal (+$50)">
+                Vomit Removal (+$50)
+              </button>
+            </div>
+
+            <label for="date">Preferred Date</label>
+            <input type="date" id="date" name="date" placeholder="YYYY-MM-DD" required />
+
+            <label for="time">Preferred Time</label>
+            <input type="time" id="time" name="time" placeholder="e.g. 10:30 AM" required />
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <!-- Disclaimers -->
+        <div class="disclaimers-wrapper">
+          <div class="info-box">
+            Please double check that your email address is correct so you’ll receive your booking confirmation. A member of our team will be in touch shortly to finalize your appointment.
+          </div>
+          <div class="disclaimer-box">
+            (We only accept cash or e-transfer.)
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
