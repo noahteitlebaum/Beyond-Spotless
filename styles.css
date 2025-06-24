@@ -1524,11 +1524,17 @@ body.menu-open #menu-toggle .bar {
 
   .addons .addon-btn {
     font-size: 0.6rem;
-    padding: 0.45em;
-    margin-left: 0 !important; /* reset desktop margin-left */
+    padding: 0.35em;
+    margin-left: 0 !important;
+    
+    height: 75px; /* set a fixed height */
+    box-sizing: border-box; /* ensures padding doesn't increase height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
-  /* in your styles.css */
   .addon-btn:hover {
     transform: none !important;
   }
