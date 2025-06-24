@@ -71,7 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
         addon_hair:   document.getElementById('hairRemoval').classList.contains('active')
                           ? 'Yes (+$40)' : 'No',
         addon_vomit:  document.getElementById('vomitRemoval').classList.contains('active')
-                          ? 'Yes (+$50)' : 'No'
+                          ? 'Yes (+$50)' : 'No',
+        addon_roof_rack:  document.getElementById('roofRack').classList.contains('active')
+                          ? 'Yes (+$10)' : 'No',
+        addon_car_seats:  document.getElementById('carSeats').classList.contains('active')
+                          ? 'Yes (+$10)' : 'No'
       };
 
       // Send via EmailJS

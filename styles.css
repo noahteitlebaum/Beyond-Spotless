@@ -964,11 +964,13 @@ body.menu-closed .content.services {
 /* Add-On Buttons */
 .addons {
   display: flex;
+  flex-wrap: wrap;           /* allow wrapping to next row */
   gap: 20px;
   margin-top: 1rem;
 }
+
 .addon-btn {
-  flex: 1;
+  flex: 0 0 calc(33.33% - 13.33px);  /* 3 per row with spacing */
   background: var(--gray-dark);
   color: var(--white);
   border: none;
@@ -978,14 +980,54 @@ body.menu-closed .content.services {
   font-weight: 600;
   cursor: pointer;
   transition: background .3s, transform .2s;
+  box-sizing: border-box;
 }
+
 .addon-btn:hover {
   background: var(--gray-dark);
 }
 
 /* Add-On Buttons Active State */
 .addon-btn.active {
-  background: #008000;    /* darker blue when “on” */
+  background: #008000; /* darker blue when “on” */
+}
+
+/* Add-On Buttons */
+.addons {
+  display: flex;
+  flex-wrap: wrap;           /* allow wrapping */
+  gap: 20px;
+  margin-top: 1rem;
+}
+
+/* Style for each button */
+.addon-btn {
+  flex: 0 0 calc(33.33% - 13.33px);  /* 3 per row with gap */
+  background: var(--gray-dark);
+  color: var(--white);
+  border: none;
+  padding: .8em 1em;
+  border-radius: 6px;
+  font-family: var(--font-accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .3s, transform .2s;
+  box-sizing: border-box;
+}
+
+/* Shift bottom two buttons (4 & 5) to the right */
+.addon-btn:nth-child(4),
+.addon-btn:nth-child(5) {
+  margin-left: 90px;
+}
+
+/* Hover and active styles */
+.addon-btn:hover {
+  background: var(--gray-dark);
+}
+
+.addon-btn.active {
+  background: #008000;
 }
 
 /* Shift “What We Do!” title right and add glow on hover */
@@ -1481,18 +1523,27 @@ body.menu-open #menu-toggle .bar {
   /* transition: none !important; */
 }
 
-/* on mobile, shrink text and padding so they exactly touch */
+/* Mobile styles */
 @media (max-width: 768px) {
-  .addons .addon-btn {
-    font-size: 0.72rem;  /* smaller font so labels fit */
-    padding: 0.4em;      /* tighter padding */
-  }
   .addons {
-    gap: 7px !important; /* you can tweak this value as needed */
+    gap: 7px !important;
+  }
+
+  .addons .addon-btn {
+    flex: 0 0 calc(33.33% - 7px); /* all equal width */
+    font-size: 0.72rem;
+    padding: 0.4em;
+    margin-left: 0 !important; /* reset desktop margin-left */
+  }
+
+  /* Target last two buttons for smaller height, padding, and font */
+  .addon-btn:nth-child(4),
+  .addon-btn:nth-child(5) {
+    margin-left: 45px !important;
   }
 }
-/* MOBILE: equal-height images in “Details In Progress” */
 
+/* MOBILE: equal-height images in “Details In Progress” */
 @media (max-width: 768px) {
   /* bump up the hero-style boxes on Services & About Us pages */
   .content.services .hero-card,
