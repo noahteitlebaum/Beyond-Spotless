@@ -1018,7 +1018,7 @@ body.menu-closed .content.services {
 /* Shift bottom two buttons (4 & 5) to the right */
 .addon-btn:nth-child(4),
 .addon-btn:nth-child(5) {
-  margin-left: 90px;
+  margin-left: -20px;
 }
 
 /* Hover and active styles */
@@ -1516,13 +1516,6 @@ body.menu-open #menu-toggle .bar {
   font-size: 0.95rem; /* adjust as needed */
 }
 
-/* in your styles.css */
-.addon-btn:hover {
-  transform: none !important;
-  /* if you want, you can also remove the transition so it’s instant */
-  /* transition: none !important; */
-}
-
 /* Mobile styles */
 @media (max-width: 768px) {
   .addons {
@@ -1530,16 +1523,14 @@ body.menu-open #menu-toggle .bar {
   }
 
   .addons .addon-btn {
-    flex: 0 0 calc(33.33% - 7px); /* all equal width */
-    font-size: 0.72rem;
-    padding: 0.4em;
+    font-size: 0.6rem;
+    padding: 0.45em;
     margin-left: 0 !important; /* reset desktop margin-left */
   }
 
-  /* Target last two buttons for smaller height, padding, and font */
-  .addon-btn:nth-child(4),
-  .addon-btn:nth-child(5) {
-    margin-left: 45px !important;
+  /* in your styles.css */
+  .addon-btn:hover {
+    transform: none !important;
   }
 }
 

@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           ? 'Yes (+$50)' : 'No',
         addon_roof_rack:  document.getElementById('roofRack').classList.contains('active')
                           ? 'Yes (+$10)' : 'No',
-        addon_car_seats:  document.getElementById('carSeats').classList.contains('active')
+        addon_baby_seat:  document.getElementById('babySeat').classList.contains('active')
                           ? 'Yes (+$10)' : 'No'
       };
 
